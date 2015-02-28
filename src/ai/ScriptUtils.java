@@ -1,7 +1,9 @@
 package ai;
 
 import ai.commands.*;
+import ai.commands.control.*;
 import ai.commands.general.*;
+import ai.commands.math.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +18,7 @@ public class ScriptUtils {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             AiNode node = new AiNode();
-            node.addCommand(new Comment("###  " + file.toString() + "  ###"));
+            node.addCommand(new CommentCommand("###  " + file.toString() + "  ###"));
             HashMap<String, Integer> labels = new HashMap<String, Integer>();
             int linum = 1;
             String currentLine;
@@ -58,7 +60,7 @@ public class ScriptUtils {
 
         AiCommand aiCommand;
         if (command.equals("labl")) {
-            aiCommand = new Comment("Label: "+params[0]);
+            aiCommand = new CommentCommand("Label: "+params[0]);
         } else if (command.equals("goto")) {
             int destination;
             try {
@@ -69,18 +71,116 @@ public class ScriptUtils {
                     destination = labels.get(params[0]);
                 } else {
                     System.out.println("Destination [" + params[0] + "] does not exist.");
-                    return new NoOp();
+                    return new NoOpCommand();
                 }
             }
             aiCommand = new GotoCommand(destination);
         } else if (command.contains("#")) {
-            aiCommand = new Comment(line);
+            aiCommand = new CommentCommand(line);
         } else if (command.equals("paus")) {
             aiCommand = new PauseCommand();
         } else if (command.equals("halt")) {
             aiCommand = new HaltCommand();
+        } else if (command.equals("addl")) {
+            aiCommand = new AddCommand(Integer.parseInt(params[0]),Integer.parseInt(params[1]));
+        } else if (command.equals("subl")) {
+            aiCommand = new SubtCommand(Integer.parseInt(params[0]),Integer.parseInt(params[1]));
+        } else if (command.equals("incl")) {
+            aiCommand = new InclCommand(Integer.parseInt(params[0]));
+        } else if (command.equals("decl")) {
+            aiCommand = new DeclCommand(Integer.parseInt(params[0]));
+        } else if (command.equals("comp")) {
+            aiCommand = new CompareCommand(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+        } else if (command.equals("mult")) {
+            aiCommand = new MultCommand(Integer.parseInt(params[0]),Integer.parseInt(params[1]));
+        } else if (command.equals("setr")) {
+            aiCommand = new SetrCommand(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+        } else if (command.equals("goge")) {
+            int destination;
+            try {
+                destination = Integer.parseInt(params[0]);
+            } catch (Exception e) {
+                //System.out.println("Exception in parsing int, trying label");
+                if (labels.containsKey(params[0])) {
+                    destination = labels.get(params[0]);
+                } else {
+                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    return new NoOpCommand();
+                }
+            }
+            aiCommand = new GogeCommand(destination);
+        } else if (command.equals("gogt")) {
+            int destination;
+            try {
+                destination = Integer.parseInt(params[0]);
+            } catch (Exception e) {
+                //System.out.println("Exception in parsing int, trying label");
+                if (labels.containsKey(params[0])) {
+                    destination = labels.get(params[0]);
+                } else {
+                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    return new NoOpCommand();
+                }
+            }
+            aiCommand = new GogtCommand(destination);
+        } else if (command.equals("gole")) {
+            int destination;
+            try {
+                destination = Integer.parseInt(params[0]);
+            } catch (Exception e) {
+                //System.out.println("Exception in parsing int, trying label");
+                if (labels.containsKey(params[0])) {
+                    destination = labels.get(params[0]);
+                } else {
+                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    return new NoOpCommand();
+                }
+            }
+            aiCommand = new GoleCommand(destination);
+        } else if (command.equals("golt")) {
+            int destination;
+            try {
+                destination = Integer.parseInt(params[0]);
+            } catch (Exception e) {
+                //System.out.println("Exception in parsing int, trying label");
+                if (labels.containsKey(params[0])) {
+                    destination = labels.get(params[0]);
+                } else {
+                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    return new NoOpCommand();
+                }
+            }
+            aiCommand = new GoltCommand(destination);
+        } else if (command.equals("goie")) {
+            int destination;
+            try {
+                destination = Integer.parseInt(params[0]);
+            } catch (Exception e) {
+                //System.out.println("Exception in parsing int, trying label");
+                if (labels.containsKey(params[0])) {
+                    destination = labels.get(params[0]);
+                } else {
+                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    return new NoOpCommand();
+                }
+            }
+            aiCommand = new GoieCommand(destination);
+        } else if (command.equals("gone")) {
+            int destination;
+            try {
+                destination = Integer.parseInt(params[0]);
+            } catch (Exception e) {
+                //System.out.println("Exception in parsing int, trying label");
+                if (labels.containsKey(params[0])) {
+                    destination = labels.get(params[0]);
+                } else {
+                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    return new NoOpCommand();
+                }
+            }
+            aiCommand = new GoneCommand(destination);
         } else {
-            aiCommand = new NoOp();
+            aiCommand = new NoOpCommand();
         }
 
         return aiCommand;

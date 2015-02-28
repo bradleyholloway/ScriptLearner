@@ -8,11 +8,11 @@ import java.util.ArrayList;
  * 2/28/2015
  */
 public class AiNode {
-    private static final int halt = 0;
-    private static final int zero = 1;
-    private static final int gt = 2;
-    private static final int lt = 3;
-    private static final int err = 4;
+    public static final int halt = 0;
+    public static final int zero = 1;
+    public static final int gt = 2;
+    public static final int lt = 3;
+    public static final int err = 4;
 
     private ArrayList<AiCommand> commands;
     private int linum;
@@ -27,7 +27,7 @@ public class AiNode {
     }
 
     public void run() {
-        if (flags[0]) {
+        if (flags[halt]) {
             return;
         }
 
@@ -48,7 +48,7 @@ public class AiNode {
             }
         }
         if (result == AiCommand.HALT || linum >= commands.size() || linum < 0) {
-            flags[0] = true;
+            flags[halt] = true;
         } else if (result == AiCommand.WAIT) {
             linum++;
         }
@@ -60,7 +60,7 @@ public class AiNode {
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("\t"+((flags[0]) ? "[h]": "[ ]")+"\t"+((flags[1]) ? "[z]": "[ ]")+"\t"+((flags[2]) ? "[g]": "[ ]")+"\t"+((flags[3]) ? "[l]": "[ ]")+"\t"+((flags[err]) ? "[e]": "[ ]")+"\n");
+        s.append("\t"+((flags[halt]) ? "[h]": "[ ]")+"\t"+((flags[zero]) ? "[z]": "[ ]")+"\t"+((flags[gt]) ? "[g]": "[ ]")+"\t"+((flags[lt]) ? "[l]": "[ ]")+"\t"+((flags[err]) ? "[e]": "[ ]")+"\n");
         for (int i = 0; i < commands.size(); i++) {
             s.append(((i == linum) ? "*" : "")+"\t[" + i + "]\t" + ((i < 10) ? "\t" : "") + commands.get(i).toString() + "\n");
         }
