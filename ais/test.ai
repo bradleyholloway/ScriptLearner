@@ -1,8 +1,11 @@
 ## Test Function AI
+setr 0 0
+setr 1 10
 labl start
-
+incl 0
+comp 0 1
+goge end
 paus
-
-goto 2
 goto start
+labl end
 halt
