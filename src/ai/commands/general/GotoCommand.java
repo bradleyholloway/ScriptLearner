@@ -1,16 +1,18 @@
-package ai.commands;
+package ai.commands.general;
+
+import ai.commands.AiCommand;
 
 /**
  * 2/28/2015
  */
-public class GotoCommand extends AiCommand{
+public class GotoCommand extends AiCommand {
     private int destinationLine;
     public GotoCommand(int destination) {
         this.destinationLine = destination;
     }
 
     @Override
-    public int run() {
+    public int run(int[] localData, boolean[] flags) {
         return destinationLine;
     }
 

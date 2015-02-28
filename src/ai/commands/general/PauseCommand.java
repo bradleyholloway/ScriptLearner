@@ -1,11 +1,13 @@
-package ai.commands;
+package ai.commands.general;
+
+import ai.commands.AiCommand;
 
 /**
  * 2/28/2015
  */
 public class PauseCommand extends AiCommand {
     @Override
-    public int run() {
+    public int run(int[] localData, boolean[] flags) {
         return WAIT;
     }
 

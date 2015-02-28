@@ -1,9 +1,11 @@
 package game;
 
 import ai.AiNode;
+import ai.ScriptUtils;
 import utils.Game;
 
 import java.awt.*;
+import java.io.File;
 
 
 /**
@@ -17,12 +19,13 @@ public class ScriptLearnerGame extends Game {
 
     @Override
     public void loadContent() {
-
+        node = ScriptUtils.loadFromFile(new File("ais/test.ai"));
     }
 
     @Override
     public void update(long elapsedTime) {
-
+        node.run();
+        System.out.println(node);
     }
 
     @Override

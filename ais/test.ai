@@ -1,13 +1,8 @@
-## This is a comment
-paus
-labl here
-paus
-hello
+## Test Function AI
+labl start
 
 paus
 
-goto here
-goto there
-labl there
-paus
-#this is another comment
+goto 2
+goto start
+halt

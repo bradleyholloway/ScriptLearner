@@ -1,11 +1,11 @@
 package ai;
 
 import ai.commands.*;
+import ai.commands.general.*;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -58,10 +58,7 @@ public class ScriptUtils {
 
         AiCommand aiCommand;
         if (command.equals("labl")) {
-            if (!labels.containsKey(params[0])) {
-                labels.put(params[0], linum);
-            }
-            aiCommand = new NoOp();
+            aiCommand = new Comment("Label: "+params[0]);
         } else if (command.equals("goto")) {
             int destination;
             try {
@@ -80,9 +77,12 @@ public class ScriptUtils {
             aiCommand = new Comment(line);
         } else if (command.equals("paus")) {
             aiCommand = new PauseCommand();
+        } else if (command.equals("halt")) {
+            aiCommand = new HaltCommand();
         } else {
             aiCommand = new NoOp();
         }
+
         return aiCommand;
     }
 
