@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class GameWindow {
@@ -13,7 +15,8 @@ public class GameWindow {
         int desiredFramePerSecondRate = targetFrameRate;
         int width = game.getWidth();
         int height = game.getHeight();
-        final boolean[] keystatus = new boolean[256];
+        final boolean[] keystatus = new boolean[257];
+
 
         JFrame frame = new JFrame();
         frame.setVisible(true);
@@ -21,7 +24,8 @@ public class GameWindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -31,6 +35,32 @@ public class GameWindow {
             @Override
             public void keyReleased(KeyEvent e) {
                 keystatus[e.getKeyCode()] = false;
+            }
+        });
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                keystatus[256] = true;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                keystatus[256] = false;
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
         Graphics frameGraphics = frame.getGraphics();

@@ -16,6 +16,7 @@ import static utils.GraphicsRelativeUtil.y;
 public class ScriptLearnerShooterMatchInstance {
     public static ArrayList<Player> players;
     public static ArrayList<Bullet> bullets;
+    private boolean[] keys;
 
     public ScriptLearnerShooterMatchInstance() {
         players = new ArrayList<Player>();
@@ -57,6 +58,16 @@ public class ScriptLearnerShooterMatchInstance {
                 i--;
             }
         }
+    }
+    public void requestControl(double x, double y) {
+        for(Player p : players) {
+            if (p.contains(x,y)) {
+                p.takeControl(keys);
+            }
+        }
+    }
+    public void giveKeys(boolean[] keys) {
+        this.keys = keys;
     }
 
     public void draw(Graphics g) {
