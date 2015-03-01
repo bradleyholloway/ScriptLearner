@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * 2/28/2015
  */
 public class AiNode {
-    public static final int timeout = 40;
+    public static final int timeout = 4;
 
     public static final int halt = 0;
     public static final int zero = 1;
@@ -33,9 +33,9 @@ public class AiNode {
         this.player = player;
     }
 
-    public void run() {
+    public boolean run() {
         if (flags[halt]) {
-            return;
+            return false;
         }
         long startTime = (long)(System.nanoTime()/1e6);
         int result = 0;
@@ -54,11 +54,16 @@ public class AiNode {
                 break;
             }
         }
+        if ((System.nanoTime()/1e6)-startTime >= timeout) {
+            return false;
+        }
         if (result == AiCommand.HALT || linum >= commands.size() || linum < 0) {
             flags[halt] = true;
+            return false;
         } else if (result == AiCommand.WAIT) {
             linum++;
         }
+        return true;
     }
 
     public boolean addCommand(AiCommand command) {

@@ -37,12 +37,13 @@ public class Player {
     private int reloadCool;
     private int ammo;
 
-    public static final int trackedStats = 5;
+    public static final int trackedStats = 6;
     private int kills;
     private int deaths;
     private int cyclesSurvived;
     private int shotsFired;
     private int reloads;
+    private int fails;
 
 
     private boolean firstRun;
@@ -69,6 +70,7 @@ public class Player {
             cyclesSurvived = 0;
             shotsFired = 0;
             reloads = 0;
+            fails = 0;
         }
 
         if (reloadCool > 0) {
@@ -96,7 +98,9 @@ public class Player {
 
         //todo update node info to script vars
 
-        node.run();
+        if (!node.run()) {
+            fails++;
+        }
     }
 
     public void rotateRight() {
@@ -180,7 +184,7 @@ public class Player {
     }
 
     public int[] getStats() {
-        return new int[]{kills, deaths, cyclesSurvived, shotsFired, reloads};
+        return new int[]{kills, deaths, cyclesSurvived, shotsFired, reloads, fails};
     }
 
     private static double[] getStartLocation() {
