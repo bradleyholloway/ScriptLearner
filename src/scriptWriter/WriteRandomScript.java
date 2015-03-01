@@ -27,7 +27,7 @@ public class WriteRandomScript {
                 int commandCode = (int) (Math.random() * 27);
                 switch(commandCode) {
                     case 0: labels.add("L"+labels.size());
-                        fileOut.append(WriteUtil.getCommandTemplates().get(0).applyArguments(labels.get(labels.size()-1)));
+                        fileOut.append(WriteUtil.getCommandTemplates().get(commandCode).applyArguments(labels.get(labels.size()-1)));
                         break;
                     case 1:case 2:case 3:case 4:case 5:case 6:case 7:
                         fileOut.append(WriteUtil.getCommandTemplates().get(commandCode).applyArguments(labels.get((int)(Math.random() * labels.size()))));

@@ -1,0 +1,28 @@
+labl LABEL			## Creates a new LABEL for use
+goge LABEL	 		## Goto if the lt flag is false
+gogt LABEL	 		## Goto if the gt flag is true
+goie LABEL	 		## Goto if the z flag is true
+gole LABEL	 		## Goto if the gt flag is false
+golt LABEL	 		## Goto if the lt flag is true
+gone LABEL	 		## Goto if the z flag is false
+goto LABEL	 		## Goto
+noop	  	 		## NoOp
+paus				## Terminates Cycle without action
+halt				## Halts the progress of the script indefinatly
+addl REGISTER REGISTER  	## Adds the values of the registers and writes to the latter
+comp REGISTER REGISTER  	## Sets the flags based on the computation REGISTER 1 - REGISTER 2
+decl REGISTER			## Decrements the value in the register
+incl REGISTER			## Increments the value in the register
+movl REGISTER REGISTER		## Copys the value in register 1 to register 2
+mult REGISTER REGISTER		## Multiplies the value in the two registers and writes to the latter
+setr REGISTER INT		## Sets the value of a register to a given integer
+subl REGISTER REGISTER		## Sets the value of R2 to R2-R1
+fire				## Attempts to fire until the character is able to
+movb				## Moves Backwards
+movf				## Moves Forwards
+reld				## Reloads
+rotr				## Rotates Right
+rotl				## Rotates Left
+strl				## Strafe Left
+strr				## Strafe Right
+rand REGISTER			## Assigns a random value (0 - 255) to the register
