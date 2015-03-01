@@ -69,4 +69,13 @@ public class CommandTemplate {
     public ArrayList<ArgType> getArguments() {
         return arguments;
     }
+
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append(command);
+        for(ArgType at : arguments) {
+            s.append(" "+at);
+        }
+        return s.toString();
+    }
 }

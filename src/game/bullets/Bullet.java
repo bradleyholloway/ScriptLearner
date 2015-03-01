@@ -1,6 +1,8 @@
 package game.bullets;
 
 import game.ScriptLearnerGame;
+import game.engine.ScriptLearnerShooterMatchInstance;
+import game.players.Player;
 import javafx.scene.shape.Circle;
 
 import java.awt.*;
@@ -18,15 +20,15 @@ public class Bullet {
     private static final double bulletWidth = .008;
     private static final int maxLife = 100;
 
+    private Player owner;
     private Color color;
     private double locX;
     private double locY;
     private double angle;
     private Polygon bullet;
-    private Rectangle bounds;
     private int life;
 
-    public Bullet(double locX, double locY, double angle, Color color) {
+    public Bullet(double locX, double locY, double angle, Color color, Player owner) {
         this.locX = locX;
         this.locY = locY;
         this.locX += 2 * velocity * Math.cos(angle);
@@ -34,6 +36,7 @@ public class Bullet {
         this.angle = angle;
         this.color = color;
         this.life = maxLife;
+        this.owner = owner;
     }
 
     public boolean collides(double locx, double locy, double radius) {
@@ -43,19 +46,22 @@ public class Bullet {
         pointx = locX + bulletLength / 2 * Math.cos(angle);
         pointy = locY + bulletLength / 2 * Math.sin(angle);
         if (r > (locx - pointx) * (locx - pointx) + (locy - pointy) * (locy - pointy)) {
-            ScriptLearnerGame.bullets.remove(this);
+            ScriptLearnerShooterMatchInstance.bullets.remove(this);
+            owner.addKill();
             return true;
         }
         pointx = locX + bulletWidth / 2 * Math.sin(-angle);
         pointy = locY + bulletWidth / 2 * Math.cos(-angle);
         if (r > (locx - pointx) * (locx - pointx) + (locy - pointy) * (locy - pointy)) {
-            ScriptLearnerGame.bullets.remove(this);
+            ScriptLearnerShooterMatchInstance.bullets.remove(this);
+            owner.addKill();
             return true;
         }
         pointx = locX - bulletWidth / 2 * Math.sin(-angle);
         pointy = locY - bulletWidth / 2 * Math.cos(-angle);
         if (r > (locx - pointx) * (locx - pointx) + (locy - pointy) * (locy - pointy)) {
-            ScriptLearnerGame.bullets.remove(this);
+            ScriptLearnerShooterMatchInstance.bullets.remove(this);
+            owner.addKill();
             return true;
         }
         return false;
@@ -67,7 +73,7 @@ public class Bullet {
         life--;
 
         if (life == 0 || locX < 0 || locX > 1 || locY < 0 || locY > 1) {
-            ScriptLearnerGame.bullets.remove(this);
+            ScriptLearnerShooterMatchInstance.bullets.remove(this);
             return true;
         }
         return false;

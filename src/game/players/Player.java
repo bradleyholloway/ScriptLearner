@@ -8,8 +8,8 @@ import javafx.scene.shape.Circle;
 import java.awt.*;
 import java.io.File;
 
-import static game.ScriptLearnerGame.bullets;
-import static game.ScriptLearnerGame.players;
+import static game.engine.ScriptLearnerShooterMatchInstance.bullets;
+import static game.engine.ScriptLearnerShooterMatchInstance.players;
 import static utils.GraphicsRelativeUtil.x;
 import static utils.GraphicsRelativeUtil.y;
 
@@ -37,6 +37,12 @@ public class Player {
     private int reloadCool;
     private int ammo;
 
+    private int kills;
+    private int deaths;
+    private int cyclesSurvived;
+    private int shotsFired;
+    private int reloads;
+
 
     private boolean firstRun;
 
@@ -57,12 +63,18 @@ public class Player {
             fireCool = fireCooldown;
             reloadCool = 0;
             ammo = maxAmmo;
+            kills = 0;
+            deaths = 0;
+            cyclesSurvived = 0;
+            shotsFired = 0;
+            reloads = 0;
         }
 
         if (reloadCool > 0) {
             reloadCool--;
             if (reloadCool == 0) {
                 ammo = maxAmmo;
+                reloads++;
             }
         }
         if (fireCool > 0) {
@@ -74,9 +86,11 @@ public class Player {
         for (int i = 0; i < bullets.size(); i++) {
             if (bullets.get(i).collides(locationx,locationy,width)) {
                 players.remove(this);
+                deaths++;
                 break;
             }
         }
+        cyclesSurvived++;
 
 
         //todo update node info to script vars
@@ -126,9 +140,9 @@ public class Player {
         if (ammo != 0 && fireCool == 0 && reloadCool == 0) {
             ammo--;
             fireCool = fireCooldown;
-            Bullet b = new Bullet(locationx,locationy,-rotation,color);
+            Bullet b = new Bullet(locationx,locationy,-rotation,color,this);
             bullets.add(b);
-
+            shotsFired++;
             return true;
         } else {
             return false;
@@ -141,22 +155,30 @@ public class Player {
         }
     }
 
+    public void addKill() {
+        kills++;
+    }
+
     public void draw(Graphics g) {
         int rotationDeg = (int) (rotation * 180 / Math.PI) % 360;
-        g.setColor(new Color(color.getRed(),color.getGreen(),color.getBlue(),25));
+        g.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 25));
         Polygon view = new Polygon();
-        view.addPoint(x(locationx),y(locationy));
-        view.addPoint(x(locationx+ viewLength*Math.cos(-rotation-fov/2)),y(locationy+viewLength* Math.sin(-rotation - fov / 2)));
+        view.addPoint(x(locationx), y(locationy));
+        view.addPoint(x(locationx + viewLength * Math.cos(-rotation - fov / 2)), y(locationy + viewLength * Math.sin(-rotation - fov / 2)));
         view.addPoint(x(locationx + viewLength * Math.cos(-rotation + fov / 2)), y(locationy + viewLength * Math.sin(-rotation + fov / 2)));
         g.fillPolygon(view);
         g.setColor(color);
         g.fillOval(x(locationx - width / 2), y(locationy - height / 2), x(width), y(height));
 
         //draw reload cool meter
-        g.setColor(new Color(255,255,255));
+        g.setColor(new Color(255, 255, 255));
         if (reloadCool > 0) {
-            g.drawArc(x(locationx - width / 2), y(locationy - height / 2), x(width), y(height), 0, (int)((double) 360 * (reloadCooldown - reloadCool) / reloadCooldown));
+            g.drawArc(x(locationx - width / 2), y(locationy - height / 2), x(width), y(height), 0, (int) ((double) 360 * (reloadCooldown - reloadCool) / reloadCooldown));
         }
+    }
+
+    public int[] getStats() {
+        return new int[]{kills, deaths, cyclesSurvived, shotsFired, reloads};
     }
 
     private static double[] getStartLocation() {
