@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * 2/28/2015
  */
 public class Mutator {
+    private File associatedFile;
     private ArrayList<String> fileLines;
     private ArrayList<String> labels;
 
@@ -15,6 +16,7 @@ public class Mutator {
         labels = new ArrayList<String>();
     }
     public Mutator(File file) {
+        associatedFile = file;
         fileLines = new ArrayList<String>();
         labels = new ArrayList<String>();
         try {
@@ -79,9 +81,18 @@ public class Mutator {
                 writer.append(command+"\n");
             }
             writer.close();
+            associatedFile = file;
         } catch (Exception e) {
             System.err.println("Error in writing file: " + file.toString());
         }
+    }
+
+    public void overwriteFile() {
+        if(associatedFile!= null) {
+            writeToFile(associatedFile);
+            return;
+        }
+        System.err.println("No Associated File!");
     }
 
     public int currentLength() {
