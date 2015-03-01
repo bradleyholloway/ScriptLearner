@@ -39,7 +39,7 @@ public class Driver {
             }
         }
 
-        Game game = new ScriptLearnerGame(width, height);
+        Game game = new ScriptLearnerGame(width, height, framerate);
         GameWindow window = new GameWindow(game, framerate);
     }
 }

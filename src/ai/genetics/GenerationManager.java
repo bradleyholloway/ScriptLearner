@@ -13,8 +13,9 @@ import java.util.ArrayList;
  */
 public class GenerationManager {
 
-    private static final int breadth = 24;
-    private static final int rematches = 10;
+    private static final int breadth = 10;
+    private static final int playerspermatch = 3;
+    private static final int rematches = 4;
     private static final int generations = 100;
     private static final int registersUsed = 8;
 
@@ -71,18 +72,12 @@ public class GenerationManager {
             }//individuals is now populated
 
 
-            ArrayList<File> subListBattle;
+
+            ArrayList<Integer> indicies = new ArrayList<Integer>();
             int[][] results = new int[individuals.size()][Player.trackedStats];
-            for (int i = 0; i < individuals.size(); i++) {
-                for (int j = 0; j < individuals.size(); j++) {
-                    subListBattle = new ArrayList<File>();
-                    subListBattle.add(individuals.get(i));
-                    subListBattle.add(individuals.get(j));
-                    HeadlessGame game = new HeadlessGame(subListBattle);
-                    int[][] result = game.runNGames(rematches,1000);
-                    add(results, result,i,j);
-                }
-            }
+
+            r_matchmaking(indicies, results, individuals);
+
             double[] k2d = new double[individuals.size()];
             for (int i = 0; i < individuals.size(); i++) {
                 k2d[i] = (double)results[i][0]*results[i][0]/((results[i][1]==0)?1:results[i][1]);
@@ -98,10 +93,36 @@ public class GenerationManager {
             seed = individuals.get(maxIndex);
         }
     }
-    private static void add(int[][] a, int[][] b, int c, int d) {
+    private static void r_matchmaking(ArrayList<Integer> indicies, int[][] results, ArrayList<File> individuals) {
+        int n_remaining = playerspermatch - indicies.size();
+
+        if (n_remaining == 0) {
+            ArrayList<File> sublistBattle = new ArrayList<File>();
+            for(int i = 0; i < playerspermatch; i++) {
+                sublistBattle.add(individuals.get(indicies.get(i)));
+            }
+            HeadlessGame game = new HeadlessGame(sublistBattle);
+            int[][] tempResult = game.runNGames(rematches, 1000);
+            addAll(results, tempResult, indicies);
+        } else {
+            for(int i = 0; i < breadth; i++) {
+                indicies.add(new Integer(i));
+                r_matchmaking(indicies, results, individuals);
+                indicies.remove(indicies.size()-1);
+            }
+        }
+    }
+    private static void addAll(int[][] sum, int[][] data, ArrayList<Integer> indicies) {
+        int a = 0;
+        for (Integer i : indicies) {
+            add(sum,data[a],i);
+            a++;
+        }
+    }
+
+    private static void add(int[][] a, int[] b, int c) {
         for(int j = 0; j < a[0].length; j++) {
-            a[c][j] += b[0][j];
-            a[d][j] += b[1][j];
+            a[c][j] += b[j];
         }
     }
 }

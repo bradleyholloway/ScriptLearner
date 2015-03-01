@@ -16,6 +16,8 @@ import java.util.HashMap;
 public abstract class Game {
     protected int width;
     protected int height;
+    protected int frameRate;
+    protected boolean[] keys;
     protected HashMap<String, BufferedImage> images;
     protected HashMap<String, Clip> sounds;
     protected String contentDirectory;
@@ -29,7 +31,10 @@ public abstract class Game {
     public void resize(int width, int height) {
         this.width = width;
         this.height = height;
-        GraphicsRelativeUtil.updateSize(width,height);
+        GraphicsRelativeUtil.updateSize(width, height);
+    }
+    public void giveKeys(boolean[] keys) {
+        this.keys = keys;
     }
 
     public int getWidth() {
@@ -38,6 +43,10 @@ public abstract class Game {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getTargetFrameRate() {
+        return frameRate;
     }
 
     protected void enableContent() {
@@ -63,7 +72,7 @@ public abstract class Game {
                 Clip clip = loadClip(fileName);
                 sounds.put(fileName.substring(0, fileName.length() - 4), clip);
             } else {
-                System.err.println("Unsuported file type: "+fileName);
+                System.err.println("Unsuported file type: " + fileName);
             }
         } catch (Exception e) {
             System.err.println("Loading Content Exception: " + fileName);
@@ -71,6 +80,7 @@ public abstract class Game {
         }
         return true;
     }
+
     protected void setContentDirectory(String path) {
         contentDirectory = path;
     }
@@ -93,6 +103,7 @@ public abstract class Game {
     protected int x(double proportion) {
         return GraphicsRelativeUtil.x(proportion);
     }
+
     protected int y(double proportion) {
         return GraphicsRelativeUtil.y(proportion);
     }

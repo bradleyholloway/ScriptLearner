@@ -16,6 +16,7 @@ import static utils.GraphicsRelativeUtil.y;
 public class ScriptLearnerShooterMatchInstance {
     public static ArrayList<Player> players;
     public static ArrayList<Bullet> bullets;
+    private boolean[] keys;
 
     public ScriptLearnerShooterMatchInstance() {
         players = new ArrayList<Player>();
@@ -25,13 +26,12 @@ public class ScriptLearnerShooterMatchInstance {
     public void loadContent() {
         players.clear();
         bullets.clear();
-        for(int i = 0; i < 9; i++) {
-            players.add(new Player(new File("ais/competitor"+i+".ai")));
+        for(int i = 0; i < 2; i++) {
+            players.add(new Player(new File("ais/test.ai")));
         }
-        //for(int i = 0; i < 2; i++) {
-            //players.add(new Player(new File("ais/bradleygenetics/generation94/0.ai")));
-            //players.add(new Player(new File("ais/bradleygenetics/generation79/0.ai")));
-        //}
+        players.add(new Player(new File("ais/bradleygenetics/generation39/0.ai")));
+        //players.add(new Player(new File("ais/bradleygenetics/generation36/0.ai")));
+
         Player.setPlayerCount(players.size());
     }
 
@@ -58,6 +58,16 @@ public class ScriptLearnerShooterMatchInstance {
                 i--;
             }
         }
+    }
+    public void requestControl(double x, double y) {
+        for(Player p : players) {
+            if (p.contains(x,y)) {
+                p.takeControl(keys);
+            }
+        }
+    }
+    public void giveKeys(boolean[] keys) {
+        this.keys = keys;
     }
 
     public void draw(Graphics g) {

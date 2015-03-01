@@ -20,8 +20,8 @@ public class Player {
     private static final double width = 0.04;
     private static final double height = 0.04;
     private static final double viewLength = 10;
-    private static final double fov = Math.PI/8;
-    private static final double rotationConstant = .02;
+    private static final double fov = Math.PI / 8;
+    private static final double rotationConstant = .035;
     private static final int fireCooldown = 10;
     private static final int reloadCooldown = 30;
     private static final int maxAmmo = 4;
@@ -36,6 +36,19 @@ public class Player {
     private int fireCool;
     private int reloadCool;
     private int ammo;
+
+    private boolean humanControlled;
+    private boolean[] keys;
+    private static char left = 0x41;
+    private static char right = 0x44;
+    private static char up = 0x57;
+    private static char down = 0x53;
+    private static char rotr = 0x4B;
+    private static char rotl = 0x4A;
+    private static char shoot = 0x20;
+    private static char reload = 0x52;
+    private static char quit = 0x1B;
+
 
     public static final int trackedStats = 6;
     private int kills;
@@ -71,6 +84,7 @@ public class Player {
             shotsFired = 0;
             reloads = 0;
             fails = 0;
+            humanControlled = false;
         }
 
         if (reloadCool > 0) {
@@ -87,7 +101,7 @@ public class Player {
             reloadCool = reloadCooldown;
         }
         for (int i = 0; i < bullets.size(); i++) {
-            if (bullets.get(i).collides(locationx,locationy,width)) {
+            if (bullets.get(i).collides(locationx, locationy, width)) {
                 players.remove(this);
                 deaths++;
                 break;
@@ -97,42 +111,69 @@ public class Player {
 
 
         //todo update node info to script vars
+        if (humanControlled) {
+            if (keys[up]) {
+                moveForward();
+            } else if (keys[down]) {
+                moveBackwards();
+            } else if (keys[left]) {
+                strafeLeft();
+            } else if (keys[right]) {
+                strafeRight();
+            }
+            if (keys[rotr]) {
+                rotateRight();
+            }
+            if (keys[rotl]) {
+                rotateLeft();
+            }
+            if (keys[shoot]) {
+                fire();
+            }
+            if (keys[reload]) {
+                reload();
+            }
+            if (keys[quit]) {
+                releaseControl();
+            }
 
-        if (!node.run()) {
-            fails++;
+        } else {
+            if (!node.run()) {
+                fails++;
+            }
         }
     }
 
     public void rotateRight() {
-        rotation-= rotationConstant;
+        rotation -= rotationConstant;
     }
 
     public void rotateLeft() {
-        rotation+= rotationConstant;
+        rotation += rotationConstant;
     }
 
     public void moveForward() {
-        double tlocationx=locationx+moveSpeed * Math.cos(-rotation);
-        double tlocationy=locationy+moveSpeed * Math.sin(-rotation);
-        tryMove(tlocationx,tlocationy);
+        double tlocationx = locationx + moveSpeed * Math.cos(-rotation);
+        double tlocationy = locationy + moveSpeed * Math.sin(-rotation);
+        tryMove(tlocationx, tlocationy);
     }
 
     public void moveBackwards() {
-        double tlocationx=locationx - moveSpeed * Math.cos(-rotation);
-        double tlocationy=locationy - moveSpeed * Math.sin(-rotation);
-        tryMove(tlocationx,tlocationy);
+        double tlocationx = locationx - moveSpeed * Math.cos(-rotation);
+        double tlocationy = locationy - moveSpeed * Math.sin(-rotation);
+        tryMove(tlocationx, tlocationy);
     }
 
     public void strafeRight() {
-        double tlocationx=locationx + moveSpeed * Math.sin(rotation);
-        double tlocationy=locationy + moveSpeed * Math.cos(rotation);
-        tryMove(tlocationx,tlocationy);
+        double tlocationx = locationx + moveSpeed * Math.sin(rotation);
+        double tlocationy = locationy + moveSpeed * Math.cos(rotation);
+        tryMove(tlocationx, tlocationy);
     }
 
     public void strafeLeft() {
-        double tlocationx=locationx - moveSpeed * Math.sin(rotation);
-        double tlocationy=locationy - moveSpeed * Math.cos(rotation);
-        tryMove(tlocationx,tlocationy);
+        double tlocationx = locationx - moveSpeed * Math.sin(rotation);
+        double tlocationy = locationy - moveSpeed * Math.cos(rotation);
+        tryMove(tlocationx, tlocationy);
     }
 
     private void tryMove(double tlocx, double tlocy) {
@@ -146,7 +187,7 @@ public class Player {
         if (ammo != 0 && fireCool == 0 && reloadCool == 0) {
             ammo--;
             fireCool = fireCooldown;
-            Bullet b = new Bullet(locationx,locationy,-rotation,color,this);
+            Bullet b = new Bullet(locationx, locationy, -rotation, color, this);
             bullets.add(b);
             shotsFired++;
             return true;
@@ -155,10 +196,25 @@ public class Player {
         }
     }
 
+    public void takeControl(boolean[] keys) {
+        this.keys = keys;
+        humanControlled = true;
+    }
+
+    public void releaseControl() {
+        this.keys = null;
+        humanControlled = false;
+    }
+
     public void reload() {
         if (ammo != maxAmmo && reloadCool == 0) {
             reloadCool = reloadCooldown;
         }
+    }
+
+    public boolean contains(double x, double y) {
+        double sum = (locationx - x) * (locationx - x) + (locationy - y) + (locationy - y);
+        return sum <= width * height;
     }
 
     public void addKill() {
