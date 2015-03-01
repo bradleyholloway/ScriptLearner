@@ -23,7 +23,9 @@ public class Mutator {
             System.err.println("Error in reading file: " + file.toString());
         }
     }
-
+    public void deleteLine(int index) {
+        fileLines.remove(index-1);
+    }
     public void appendCommand(String command) {
         insertCommand(command, fileLines.size()+1);
     }
