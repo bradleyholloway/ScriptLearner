@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * 2/28/2015
  */
 public class AiNode {
+    public static final int timeout = 40;
+
     public static final int halt = 0;
     public static final int zero = 1;
     public static final int gt = 2;
@@ -24,7 +26,7 @@ public class AiNode {
     public AiNode() {
         commands = new ArrayList<AiCommand>();
         linum = 0;
-        localData = new int[10];
+        localData = new int[20];
         flags = new boolean[5];
     }
     public void linkPlayer(Player player) {
@@ -35,11 +37,11 @@ public class AiNode {
         if (flags[halt]) {
             return;
         }
-
+        long startTime = (long)(System.nanoTime()/1e6);
         int result = 0;
 
         result = commands.get(linum).run(player, localData, flags);
-        while (result >= AiCommand.STEP && linum < commands.size()) {
+        while (result >= AiCommand.STEP && linum < commands.size() && (System.nanoTime()/1e6)-startTime < timeout) {
             if (result == AiCommand.STEP) {
                 linum++;
             }

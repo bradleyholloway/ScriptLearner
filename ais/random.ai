@@ -1,0 +1,22 @@
+### Randomly Generated Script ###
+labl start
+subl 1 1
+gone start
+paus
+movl 3 1
+mult 2 2
+movb
+incl 2
+gone start
+movb
+labl L1
+goge start
+addl 0 2
+fire
+rotr
+subl 0 2
+movf
+mult 1 1
+movf
+movl 1 0
+goto L1

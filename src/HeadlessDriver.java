@@ -16,7 +16,8 @@ public class HeadlessDriver {
         }
 
         HeadlessGame game = new HeadlessGame(contestants);
-        int[][] results = game.runGame(10000);
+        int[][] results = game.runNGames(1000,1000);
+
 
         for(int i = 0; i < results.length; i++) {
             System.out.println(Arrays.toString(results[i]));

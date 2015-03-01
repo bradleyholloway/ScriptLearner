@@ -37,6 +37,7 @@ public class Player {
     private int reloadCool;
     private int ammo;
 
+    public static final int trackedStats = 5;
     private int kills;
     private int deaths;
     private int cyclesSurvived;
@@ -94,6 +95,7 @@ public class Player {
 
 
         //todo update node info to script vars
+
         node.run();
     }
 

@@ -8,6 +8,7 @@ import java.util.HashMap;
  */
 public class WriteUtil {
     private static ArrayList<CommandTemplate> commandTemplates;
+    private static ArrayList<CommandTemplate> actionTemplates;
 
     public static ArrayList<CommandTemplate> getCommandTemplates() {
         if (commandTemplates == null) {
@@ -15,5 +16,12 @@ public class WriteUtil {
             CommandTemplate.populateTemplates();
         }
         return commandTemplates;
+    }
+    public static ArrayList<CommandTemplate> getActionTemplates() {
+        if (actionTemplates == null) {
+            actionTemplates = new ArrayList<CommandTemplate>();
+            CommandTemplate.populateTemplates();
+        }
+        return actionTemplates;
     }
 }

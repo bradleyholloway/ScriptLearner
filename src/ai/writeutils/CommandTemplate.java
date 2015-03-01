@@ -15,7 +15,10 @@ public class CommandTemplate {
 
     protected static void populateTemplates() {
         ArrayList<CommandTemplate> templates = WriteUtil.getCommandTemplates();
+        ArrayList<CommandTemplate> actionTemplates = WriteUtil.getActionTemplates();
         templates.clear();
+        actionTemplates.clear();
+        templates.add(new CommandTemplate("labl l"));
         templates.add(new CommandTemplate("goge l"));
         templates.add(new CommandTemplate("gogt l"));
         templates.add(new CommandTemplate("goie l"));
@@ -42,6 +45,16 @@ public class CommandTemplate {
         templates.add(new CommandTemplate("rotl"));
         templates.add(new CommandTemplate("strl"));
         templates.add(new CommandTemplate("strr"));
+        templates.add(new CommandTemplate("rand r"));
+
+        actionTemplates.add(new CommandTemplate("fire"));
+        actionTemplates.add(new CommandTemplate("movb"));
+        actionTemplates.add(new CommandTemplate("movf"));
+        actionTemplates.add(new CommandTemplate("reld"));
+        actionTemplates.add(new CommandTemplate("rotr"));
+        actionTemplates.add(new CommandTemplate("rotl"));
+        actionTemplates.add(new CommandTemplate("strl"));
+        actionTemplates.add(new CommandTemplate("strr"));
     }
 
 
@@ -77,5 +90,14 @@ public class CommandTemplate {
             s.append(" "+at);
         }
         return s.toString();
+    }
+
+    public String applyArguments(String... args) {
+        StringBuilder result = new StringBuilder();
+        result.append(command);
+        for (int i = 0; i < arguments.size(); i++) {
+            result.append(" "+args[i]);
+        }
+        return result.toString();
     }
 }

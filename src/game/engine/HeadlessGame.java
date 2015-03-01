@@ -19,7 +19,7 @@ public class HeadlessGame {
     }
 
     public int[][] runGame(int cycles) {
-        int[][] results = new int[contestants.size()][];
+        int[][] results = new int[contestants.size()][Player.trackedStats];
         combatants = new ArrayList<Player>();
         ScriptLearnerShooterMatchInstance instance = new ScriptLearnerShooterMatchInstance();
         instance.loadHeadlessContent(contestants, combatants);
@@ -36,7 +36,7 @@ public class HeadlessGame {
     }
 
     public int[][] runNGames(int n, int cycles) {
-        int[][] results = new int[contestants.size()][];
+        int[][] results = new int[contestants.size()][Player.trackedStats];
         for (int i = 0; i < n; i++) {
             results = mergeDestructive(results, runGame(cycles));
         }

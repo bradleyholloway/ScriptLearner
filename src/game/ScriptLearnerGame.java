@@ -21,7 +21,6 @@ public class ScriptLearnerGame extends Game {
     @Override
     public void loadContent() {
         instance.loadContent();
-
     }
 
     @Override
