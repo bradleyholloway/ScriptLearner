@@ -37,6 +37,9 @@ public class Mutator {
         }
     }
     public void deleteLine(int index) {
+        if (fileLines.size()==0) {
+            return;
+        }
         if(index == 0) {
             index = 1;
         }
