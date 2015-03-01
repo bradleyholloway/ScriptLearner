@@ -10,6 +10,7 @@ public class Mutator {
     private ArrayList<String> fileLines;
 
     public Mutator(File file) {
+        fileLines = new ArrayList<String>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
@@ -21,10 +22,11 @@ public class Mutator {
     }
 
     public void appendCommand(String command) {
-        insertCommand(command, fileLines.size());
+        insertCommand(command, fileLines.size()+1);
     }
 
     public void insertCommand(String command, int index) {
+        index--;
         if (index == fileLines.size()) {
             fileLines.add(command);
             return;
@@ -33,7 +35,7 @@ public class Mutator {
     }
 
     public void overwriteLine(String command, int index) {
-        fileLines.remove(index);
+        fileLines.remove(index-1);
         insertCommand(command, index);
     }
 
@@ -43,6 +45,7 @@ public class Mutator {
             for (String command : fileLines) {
                 writer.append(command+"\n");
             }
+            writer.close();
         } catch (Exception e) {
             System.err.println("Error in writing file: " + file.toString());
         }
