@@ -1,0 +1,137 @@
+rotr
+strr
+strl
+fire
+labl start
+rotr
+rotr
+movf
+setr 1 3
+setr 0 0
+strl
+fire
+rotr
+strr
+movb
+fire
+movb
+movb
+movf
+movf
+movf
+labl loop
+fire
+rotr
+strl
+rotr
+movb
+strl
+movb
+rotr
+fire
+strr
+rotr
+rotr
+comp 0 1
+movb
+reld
+strl
+strl
+strl
+rotr
+strl
+strr
+goto loop
+labl reload
+strr
+strr
+reld
+rotr
+movb
+strr
+movb
+rotr
+reld
+strr
+rotl
+movb
+rotl
+reld
+reld
+strr
+movf
+fire
+movf
+reld
+strr
+strr
+strr
+rotl
+rotr
+movf
+rotl
+rotl
+strl
+strr
+fire
+rotr
+rotr
+rotl
+movf
+movf
+movb
+strl
+rotl
+rotr
+movb
+strr
+fire
+movf
+strr
+goto start
+reld
+halt
+strl
+mult 3 1
+movb
+movf
+strl
+movb
+rotl
+strr
+comp 3 0
+movf
+rotr
+strr
+movl 3 5
+movb
+fire
+movb
+strl
+reld
+movb
+subl 3 7
+incl 1
+paus
+paus
+goie reload
+goto start
+decl 4
+goge reload
+addl 6 7
+rand 6
+reld
+subl 5 0
+movb
+goge reload
+incl 7
+rotl
+rotl
+paus
+labl .LQZADJUL
+movf
+halt
+rotl
+gole start
+fire
+movb
