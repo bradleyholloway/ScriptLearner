@@ -45,6 +45,11 @@ public class Mutator {
             labels.remove(temp.substring(Math.min(5,temp.length())).toLowerCase().split(" ")[0]);
         }
     }
+    public void clearBuffer() {
+        fileLines.clear();
+        labels.clear();
+    }
+
     public void appendCommand(String command) {
         insertCommand(command, fileLines.size()+1);
     }
