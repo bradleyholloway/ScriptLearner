@@ -34,6 +34,10 @@ public class AiNode {
     }
 
     public boolean run() {
+        if (linum==commands.size()) {
+            flags[halt] = true;
+        }
+
         if (flags[halt]) {
             return false;
         }

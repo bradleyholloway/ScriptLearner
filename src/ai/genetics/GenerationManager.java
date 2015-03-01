@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class GenerationManager {
 
-    private static final int breadth = 16;
+    private static final int breadth = 24;
     private static final int rematches = 10;
-    private static final int generations = 20;
+    private static final int generations = 100;
     private static final int registersUsed = 8;
 
     private static final int commandsPossible = WriteUtil.getCommandTemplates().size();
@@ -49,7 +49,7 @@ public class GenerationManager {
                             mutator.appendCommand(WriteUtil.getCommandTemplates().get(index).applyArguments(".L"+labl));
                             break;
                         case 1:case 2:case 3:case 4:case 5:case 6:case 7:
-                            mutator.appendCommand(WriteUtil.getCommandTemplates().get(index).applyArguments(mutator.getLabels().get((int)(Math.random() * mutator.getLabels().size()))));
+                            mutator.appendCommand(WriteUtil.getCommandTemplates().get(index).applyArguments(((mutator.getLabels().size()==0) ? "1" : mutator.getLabels().get((int)(Math.random() * mutator.getLabels().size())))));
                             break;
                         case 11:case 12:case 13:case 14:case 15:case 16:case 18:case 27:
                             mutator.appendCommand(WriteUtil.getCommandTemplates().get(index).applyArguments("" + (int) (Math.random() * registersUsed), "" + (int) (Math.random() * registersUsed)));
@@ -74,7 +74,7 @@ public class GenerationManager {
             ArrayList<File> subListBattle;
             int[][] results = new int[individuals.size()][Player.trackedStats];
             for (int i = 0; i < individuals.size(); i++) {
-                for (int j = i+1; j < individuals.size(); j++) {
+                for (int j = 0; j < individuals.size(); j++) {
                     subListBattle = new ArrayList<File>();
                     subListBattle.add(individuals.get(i));
                     subListBattle.add(individuals.get(j));
