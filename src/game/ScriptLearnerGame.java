@@ -51,7 +51,7 @@ public class ScriptLearnerGame extends Game {
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.gray);
+        g.setColor(Color.darkGray);
         g.fillRect(0, 0, x(1), y(1));
 
         for (Player player : players) {

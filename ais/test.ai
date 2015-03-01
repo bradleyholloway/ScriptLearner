@@ -1,14 +1,25 @@
 ## Test Function AI
 labl start
-setr 1 12
+setr 1 3
 setr 0 0
 labl loop
 incl 0
 fire
+strr
 comp 0 1
 goge reload
 goto loop
 labl reload
+strr
+strr
+strr
+strr
+strr
+strr
+strr
+strr
+strr
+strr
 reld
 goto start
 halt

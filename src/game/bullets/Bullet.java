@@ -66,7 +66,7 @@ public class Bullet {
         locY += velocity * Math.sin(angle);
         life--;
 
-        if (life == 0) {
+        if (life == 0 || locX < 0 || locX > 1 || locY < 0 || locY > 1) {
             ScriptLearnerGame.bullets.remove(this);
             return true;
         }

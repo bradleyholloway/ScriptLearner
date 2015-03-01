@@ -92,23 +92,34 @@ public class Player {
     }
 
     public void moveForward() {
-        locationx+=moveSpeed * Math.cos(-rotation);
-        locationy+=moveSpeed * Math.sin(-rotation);
+        double tlocationx=locationx+moveSpeed * Math.cos(-rotation);
+        double tlocationy=locationy+moveSpeed * Math.sin(-rotation);
+        tryMove(tlocationx,tlocationy);
     }
 
     public void moveBackwards() {
-        locationx-=moveSpeed * Math.cos(-rotation);
-        locationy-=moveSpeed * Math.sin(-rotation);
+        double tlocationx=locationx - moveSpeed * Math.cos(-rotation);
+        double tlocationy=locationy - moveSpeed * Math.sin(-rotation);
+        tryMove(tlocationx,tlocationy);
     }
 
     public void strafeRight() {
-        locationx+=moveSpeed * Math.sin(rotation);
-        locationy+=moveSpeed * Math.cos(rotation);
+        double tlocationx=locationx + moveSpeed * Math.sin(rotation);
+        double tlocationy=locationy + moveSpeed * Math.cos(rotation);
+        tryMove(tlocationx,tlocationy);
     }
 
     public void strafeLeft() {
-        locationx-=moveSpeed * Math.sin(rotation);
-        locationy-=moveSpeed * Math.cos(rotation);
+        double tlocationx=locationx - moveSpeed * Math.sin(rotation);
+        double tlocationy=locationy - moveSpeed * Math.cos(rotation);
+        tryMove(tlocationx,tlocationy);
+    }
+
+    private void tryMove(double tlocx, double tlocy) {
+        if (tlocx > .03 && tlocx < .98 && tlocy < .97 && tlocy > .075) {
+            locationx = tlocx;
+            locationy = tlocy;
+        }
     }
 
     public boolean fire() {
