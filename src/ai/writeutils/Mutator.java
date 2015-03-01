@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public class Mutator {
     private ArrayList<String> fileLines;
 
+    public Mutator() {
+        fileLines = new ArrayList<String>();
+    }
     public Mutator(File file) {
         fileLines = new ArrayList<String>();
         try {
