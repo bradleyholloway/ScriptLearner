@@ -71,7 +71,7 @@ public class ScriptUtils {
                 if (labels.containsKey(params[0])) {
                     destination = labels.get(params[0]);
                 } else {
-                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    //System.out.println("Destination [" + params[0] + "] does not exist.");
                     return new NoOpCommand();
                 }
             }
@@ -105,7 +105,7 @@ public class ScriptUtils {
                 if (labels.containsKey(params[0])) {
                     destination = labels.get(params[0]);
                 } else {
-                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    //System.out.println("Destination [" + params[0] + "] does not exist.");
                     return new NoOpCommand();
                 }
             }
@@ -119,7 +119,7 @@ public class ScriptUtils {
                 if (labels.containsKey(params[0])) {
                     destination = labels.get(params[0]);
                 } else {
-                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    //System.out.println("Destination [" + params[0] + "] does not exist.");
                     return new NoOpCommand();
                 }
             }
@@ -133,7 +133,7 @@ public class ScriptUtils {
                 if (labels.containsKey(params[0])) {
                     destination = labels.get(params[0]);
                 } else {
-                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    //System.out.println("Destination [" + params[0] + "] does not exist.");
                     return new NoOpCommand();
                 }
             }
@@ -147,7 +147,7 @@ public class ScriptUtils {
                 if (labels.containsKey(params[0])) {
                     destination = labels.get(params[0]);
                 } else {
-                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    //System.out.println("Destination [" + params[0] + "] does not exist.");
                     return new NoOpCommand();
                 }
             }
@@ -161,7 +161,7 @@ public class ScriptUtils {
                 if (labels.containsKey(params[0])) {
                     destination = labels.get(params[0]);
                 } else {
-                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    //System.out.println("Destination [" + params[0] + "] does not exist.");
                     return new NoOpCommand();
                 }
             }
@@ -175,7 +175,7 @@ public class ScriptUtils {
                 if (labels.containsKey(params[0])) {
                     destination = labels.get(params[0]);
                 } else {
-                    System.out.println("Destination [" + params[0] + "] does not exist.");
+                    //System.out.println("Destination [" + params[0] + "] does not exist.");
                     return new NoOpCommand();
                 }
             }

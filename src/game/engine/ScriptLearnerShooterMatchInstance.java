@@ -29,7 +29,7 @@ public class ScriptLearnerShooterMatchInstance {
         for (int i = 0; i < 3; i++) {
             players.add(new Player(new File("ais/test.ai")));
         }
-        players.add(new Player(new File("ais/random.ai")));
+        players.add(new Player(new File("ais/0.ai")));
 
         Player.setPlayerCount(players.size());
     }
