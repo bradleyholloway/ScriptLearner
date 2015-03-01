@@ -13,8 +13,9 @@ public class ScriptLearnerGame extends Game {
 
     ScriptLearnerShooterMatchInstance instance;
 
-    public ScriptLearnerGame(int width, int height) {
+    public ScriptLearnerGame(int width, int height, int framerate) {
         resize(width, height);
+        this.frameRate = framerate;
         instance = new ScriptLearnerShooterMatchInstance();
     }
 
@@ -26,6 +27,14 @@ public class ScriptLearnerGame extends Game {
     @Override
     public void update(long elapsedTime) {
         instance.update(elapsedTime);
+
+        if (keys[0x27]) {
+            frameRate++;
+        }
+        if (keys[0x25]) {
+            frameRate--;
+        }
+
     }
 
     @Override

@@ -2,6 +2,8 @@ package utils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class GameWindow {
@@ -11,13 +13,28 @@ public class GameWindow {
         int desiredFramePerSecondRate = targetFrameRate;
         int width = game.getWidth();
         int height = game.getHeight();
+        final boolean[] keystatus = new boolean[256];
 
         JFrame frame = new JFrame();
         frame.setVisible(true);
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Graphics frameGraphics = frame.getGraphics();
+        frame.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
 
+            @Override
+            public void keyPressed(KeyEvent e) {
+                keystatus[e.getKeyCode()] = true;
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                keystatus[e.getKeyCode()] = false;
+            }
+        });
+        Graphics frameGraphics = frame.getGraphics();
+        game.giveKeys(keystatus);
 
         int millis = 1000 / desiredFramePerSecondRate;
         game.loadContent();
@@ -32,6 +49,10 @@ public class GameWindow {
                 width = frame.getWidth();
                 height = frame.getHeight();
                 game.resize(width, height);
+            }
+            if (game.getTargetFrameRate() != targetFrameRate) {
+                targetFrameRate = game.getTargetFrameRate();
+                millis = 1000 / targetFrameRate;
             }
 
             game.update(System.nanoTime() - startTime);
