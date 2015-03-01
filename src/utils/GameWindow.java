@@ -47,7 +47,7 @@ public class GameWindow {
                 if (sleepTime > 0) {
                     Thread.sleep(sleepTime);
                 } else {
-                    System.err.println("Running Late!: " + Math.abs(sleepTime));
+                    //System.err.println("Running Late!: " + Math.abs(sleepTime));
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

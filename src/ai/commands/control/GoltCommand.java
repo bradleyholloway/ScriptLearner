@@ -2,6 +2,7 @@ package ai.commands.control;
 
 import ai.AiNode;
 import ai.commands.AiCommand;
+import game.players.Player;
 
 /**
  * 2/28/2015
@@ -13,7 +14,7 @@ public class GoltCommand extends AiCommand {
     }
 
     @Override
-    public int run(int[] localData, boolean[] flags) {
+    public int run(Player player, int[] localData, boolean[] flags) {
         return (flags[AiNode.lt]) ? destination : STEP;
     }
 

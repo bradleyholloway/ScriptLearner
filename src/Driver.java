@@ -8,7 +8,7 @@ import utils.GameWindow;
 public class Driver {
     private static int defaultWidth = 1280;
     private static int defaultHeight = 720;
-    private static int defaultFrameRate = 5;
+    private static int defaultFrameRate = 30;
 
     public static void main(String args[]) {
         int width = defaultWidth, height=defaultHeight, framerate=defaultFrameRate;

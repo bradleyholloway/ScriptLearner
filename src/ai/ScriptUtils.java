@@ -2,6 +2,7 @@ package ai;
 
 import ai.commands.*;
 import ai.commands.control.*;
+import ai.commands.game.*;
 import ai.commands.general.*;
 import ai.commands.math.*;
 
@@ -179,6 +180,24 @@ public class ScriptUtils {
                 }
             }
             aiCommand = new GoneCommand(destination);
+        } else if (command.equals("rotr")) {
+            aiCommand = new RotateRightCommand();
+        } else if (command.equals("rotl")) {
+            aiCommand = new RotateLeftCommand();
+        } else if (command.equals("fire")) {
+            aiCommand = new FireCommand();
+        } else if (command.equals("reld")) {
+            aiCommand = new ReloadCommand();
+        } else if (command.equals("movf")) {
+            aiCommand = new MoveForwardCommand();
+        } else if (command.equals("movb")) {
+            aiCommand = new MoveBackwardCommand();
+        } else if (command.equals("strr")) {
+            aiCommand = new StrafeRightCommand();
+        } else if (command.equals("strl")) {
+            aiCommand = new StrafeLeftCommand();
+        } else if (command.equals("move") | command.equals("movl")) {
+            aiCommand = new MoveCommand(Integer.parseInt(params[0]),Integer.parseInt(params[1]));
         } else {
             aiCommand = new NoOpCommand();
         }

@@ -1,11 +1,14 @@
 ## Test Function AI
-setr 0 0
-setr 1 10
 labl start
+setr 1 12
+setr 0 0
+labl loop
 incl 0
+fire
 comp 0 1
-goge end
-paus
+goge reload
+goto loop
+labl reload
+reld
 goto start
-labl end
 halt

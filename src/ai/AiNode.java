@@ -1,6 +1,7 @@
 package ai;
 
 import ai.commands.AiCommand;
+import game.players.Player;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class AiNode {
     public static final int lt = 3;
     public static final int err = 4;
 
+    private Player player;
     private ArrayList<AiCommand> commands;
     private int linum;
     private int[] localData;
@@ -25,6 +27,9 @@ public class AiNode {
         localData = new int[10];
         flags = new boolean[5];
     }
+    public void linkPlayer(Player player) {
+        this.player = player;
+    }
 
     public void run() {
         if (flags[halt]) {
@@ -33,7 +38,7 @@ public class AiNode {
 
         int result = 0;
 
-        result = commands.get(linum).run(localData, flags);
+        result = commands.get(linum).run(player, localData, flags);
         while (result >= AiCommand.STEP && linum < commands.size()) {
             if (result == AiCommand.STEP) {
                 linum++;
@@ -42,7 +47,7 @@ public class AiNode {
                 linum = result;
             }
             if (linum < commands.size() && linum >= 0) {
-                result = commands.get(linum).run(localData, flags);
+                result = commands.get(linum).run(player, localData, flags);
             } else {
                 break;
             }
