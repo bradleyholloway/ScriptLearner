@@ -70,6 +70,10 @@ public class AiNode {
         return true;
     }
 
+    public int[] getRegisters() {
+        return localData;
+    }
+
     public boolean addCommand(AiCommand command) {
         return commands.add(command);
     }

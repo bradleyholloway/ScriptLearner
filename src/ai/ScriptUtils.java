@@ -198,6 +198,8 @@ public class ScriptUtils {
             aiCommand = new StrafeLeftCommand();
         } else if (command.equals("rand")) {
             aiCommand = new RandomCommand(Integer.parseInt(params[0]));
+        } else if (command.equals("absl")) {
+            aiCommand = new AbsoluteValueCommand(Integer.parseInt(params[0]));
         } else if (command.equals("move") | command.equals("movl")) {
             aiCommand = new MoveCommand(Integer.parseInt(params[0]),Integer.parseInt(params[1]));
         } else {

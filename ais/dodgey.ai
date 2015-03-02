@@ -1,0 +1,118 @@
+## Custom Handmade Ai, to try to incorporate Dodging ##
+## @Author Bradley Holloway on 3/1/2015              ##
+
+# Register 10 holds the status of ready to fire
+# Register 11 holds the distance to the closest bullet
+# Register 12 holds the angle relative that the bullet is going
+# Register 13 holds the angle relative to the player to turn to bullet
+# Register 14 holds the distance to the closest player in sight
+# Register 15 holds the angle relative to the player to turn
+
+labl start
+movl 12 0
+absl 0
+setr 1 175
+comp 0 1
+gole dodge
+goto attack
+
+labl attack
+movl 10 0
+setr 1 1
+comp 0 1
+goie fire
+goto scout
+
+labl scout
+setr 1 500
+comp 1 14
+goie free
+setr 2 0
+setr 1 0
+movl 15 0
+comp 0 1
+gogt scanleft
+golt scanright
+goto move
+
+labl free
+setr 1 500
+comp 1 13
+goie scanrandom
+movl 12 0
+setr 1 0
+comp 1 0
+goie scanrandom
+setr 2 0
+setr 1 0
+movl 13 0
+comp 0 1
+gogt scanleft
+golt scanright
+goto scanrandom
+
+labl scanrandom
+setr 3 0
+comp 2 3
+gogt scanright
+golt scanleft
+rand 2
+setr 3 128
+subl 3 2
+goto scanrandom
+
+labl scanright
+rotr
+goto start
+
+labl scanleft
+rotl
+goto start
+
+labl move
+movl 14 0
+setr 1 175
+comp 0 1
+golt moveback
+gogt moveforward
+goto straferandom
+
+labl straferandom
+setr 3 0
+comp 2 3
+gogt right
+golt left
+rand 2
+setr 3 128
+subl 3 2
+goto straferandom
+
+labl moveforward
+movf
+goto start
+
+labl moveback
+movb
+goto start
+
+labl fire
+fire
+goto start
+
+labl dodge
+movl 12 0
+setr 1 0
+comp 1 0
+goge right
+goto left
+
+labl right
+strr
+goto start
+labl left
+strl
+goto start
+
+labl err
+rotr
+goto err

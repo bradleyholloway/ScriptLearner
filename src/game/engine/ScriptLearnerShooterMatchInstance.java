@@ -26,12 +26,15 @@ public class ScriptLearnerShooterMatchInstance {
     public void loadContent() {
         players.clear();
         bullets.clear();
-        for(int i = 0; i < 2; i++) {
-            players.add(new Player(new File("ais/test.ai")));
-        }
-        players.add(new Player(new File("ais/bradleygenetics/generation39/0.ai")));
-        //players.add(new Player(new File("ais/bradleygenetics/generation36/0.ai")));
 
+        players.add(new Player(new File("ais/dodgey.ai")));
+        players.add(new Player(new File("ais/dodgey.ai")));
+
+        for(int i = 0; i < 4; i ++) {
+            //players.add(new Player(new File("ais/test.ai")));
+
+            //players.add(new Player(new File("ais/bradleygenetics/generation2/0.ai")));
+        }
         Player.setPlayerCount(players.size());
     }
 
@@ -71,7 +74,7 @@ public class ScriptLearnerShooterMatchInstance {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.darkGray);
+        g.setColor(Color.black);
         g.fillRect(0, 0, x(1), y(1));
 
         for (Player player : players) {

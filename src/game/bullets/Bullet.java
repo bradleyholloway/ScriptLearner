@@ -39,6 +39,28 @@ public class Bullet {
         this.owner = owner;
     }
 
+    public double getAngle() {
+        return angle;
+    }
+
+    public double getRelativeAngle(double x, double y) {
+        return Math.atan2(y-locY,x-locX);
+    }
+
+    public double getX() {
+        return locX;
+    }
+    public double getY() {
+        return locY;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+    public boolean isContained(Polygon view) {
+        return view.contains(x(locX),y(locY));
+    }
+
     public boolean collides(double locx, double locy, double radius) {
         double r = radius * radius;
         r/=4;
@@ -65,6 +87,10 @@ public class Bullet {
             return true;
         }
         return false;
+    }
+
+    public double distance(double x, double y) {
+        return Math.sqrt((x - locX)*(x-locX)+(y-locY)*(y-locY));
     }
 
     public boolean run() {
