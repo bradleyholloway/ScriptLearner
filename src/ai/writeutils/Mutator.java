@@ -103,6 +103,16 @@ public class Mutator {
         System.err.println("No Associated File!");
     }
 
+    public void overwriteFile(File file) {
+        if(file!= null) {
+            writeToFile(file);
+            return;
+        }
+        System.err.println("No Associated File!");
+    }
+
+
+
     public int currentLength() {
         return fileLines.size()+1;
     }

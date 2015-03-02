@@ -26,14 +26,19 @@ public class ScriptLearnerShooterMatchInstance {
     public void loadContent() {
         players.clear();
         bullets.clear();
-        players.add(new Player(new File("ais/dodgey.ai")));
-        players.add(new Player(new File("ais/dodgey.ai")));
+       // players.add(new Player(new File("ais/dodgey.ai")));
+        //players.add(new Player(new File("ais/dodgey.ai")));
+        //players.add(new Player(new File("ais/dodgey.ai")));
+       // players.add(new Player(new File("ais/dodgey.ai")));
 
-        for(int i = 0; i < 4; i ++) {
+        for(int i = 0; i < 10; i ++) {
             //players.add(new Player(new File("ais/test.ai")));
+            players.add(new Player(new File("ais/robertoGenetics/competitor" + i+".ai")));
+            //players.add(new Player(new File("ais/dodgey.ai")));
 
             //players.add(new Player(new File("ais/bradleygenetics/generation2/0.ai")));
         }
+
         Player.setPlayerCount(players.size());
     }
 
