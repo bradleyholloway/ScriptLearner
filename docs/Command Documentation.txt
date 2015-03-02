@@ -26,3 +26,4 @@ rotl				## Rotates Left
 strl				## Strafe Left
 strr				## Strafe Right
 rand REGISTER			## Assigns a random value (0 - 255) to the register
+absl REGISTER			## Assigns the absolute value of the register to the register
