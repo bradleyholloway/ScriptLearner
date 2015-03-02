@@ -16,7 +16,7 @@ import static utils.GraphicsRelativeUtil.y;
  * 2/28/2015
  */
 public class ScriptLearnerShooterMatchInstance {
-    public static final boolean LOG = true;
+    public static final boolean LOG = false;
 
     public static ArrayList<Player> players;
     public static ArrayList<Bullet> bullets;
@@ -44,14 +44,8 @@ public class ScriptLearnerShooterMatchInstance {
         //players.add(new Player(new File("ais/dodgey.ai")));
        // players.add(new Player(new File("ais/dodgey.ai")));
 
-<<<<<<< HEAD
-        for(int i = 0; i < 10; i ++) {
-=======
-        players.add(new Player(new File("ais/dodgey.ai")));
-        players.add(new Player(new File("ais/dodgey.ai")));
 
-        for (int i = 0; i < 4; i++) {
->>>>>>> e85433ea659b456f0d821942d5d63b941a42a26b
+        for (int i = 0; i < 10; i++) {
             //players.add(new Player(new File("ais/test.ai")));
             players.add(new Player(new File("ais/robertoGenetics/competitor" + i+".ai")));
             //players.add(new Player(new File("ais/dodgey.ai")));

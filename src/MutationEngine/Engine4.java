@@ -45,10 +45,27 @@ public class Engine4 {
         mutefile.deleteLine((int) Math.random() * (mutefile.currentLength() - 1));
     }
 
-    public void runMatchedGeneration(int numPerMatch)
+    public void runMatchedGeneration(int playerMatchesPerGeneration, int numPerMatch)
     {
         double [] scores = new double [numPlayers];
-        
+        ArrayList<int []> matches = MatchGenerator(playerMatchesPerGeneration,numPerMatch);
+
+    }
+
+    public ArrayList<int []> MatchGenerator(int playerMatchesPerGeneration, int numPerMatch)
+    {
+        int [] playerMatchesLeft = new int[numPlayers];
+        for(int current: playerMatchesLeft)
+            playerMatchesLeft[current] = playerMatchesPerGeneration;
+
+
+
+        return null;
+    }
+
+    public ArrayList<int []> MatchGenerator(int playerMatchesPerGeneration)
+    {
+        return null;
     }
 
     public void runBasicGeneration ()
