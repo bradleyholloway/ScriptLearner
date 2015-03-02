@@ -27,9 +27,10 @@ public class ScriptLearnerShooterMatchInstance {
         players.clear();
         bullets.clear();
         for(int i = 0; i < 2; i++) {
-            players.add(new Player(new File("ais/test.ai")));
+            players.add(new Player(new File("ais/competitor" + i + ".ai")));
         }
-        players.add(new Player(new File("ais/bradleygenetics/generation39/0.ai")));
+        players.add(new Player(new File("ais/bradley.ai")));
+
         //players.add(new Player(new File("ais/bradleygenetics/generation36/0.ai")));
 
         Player.setPlayerCount(players.size());
