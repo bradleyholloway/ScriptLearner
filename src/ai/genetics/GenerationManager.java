@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class GenerationManager {
 
-    private static final int breadth = 10;
-    private static final int playerspermatch = 3;
-    private static final int rematches = 4;
+    private static final int breadth = 8;
+    private static final int playerspermatch = 5;
+    private static final int rematches = 1;
     private static final int generations = 100;
     private static final int registersUsed = 8;
 
@@ -66,6 +66,7 @@ public class GenerationManager {
                 } else if (species %3==0) {
                     mutator.deleteLine((int)(Math.random()*mutator.currentLength()));
                 }
+                //Outputs K/D * Kills/Game
                 f = new File("ais/bradleygenetics/generation"+generation+"/"+species+".ai");
                 individuals.add(f);
                 mutator.writeToFile(f);
@@ -82,6 +83,8 @@ public class GenerationManager {
             for (int i = 0; i < individuals.size(); i++) {
                 k2d[i] = (double)results[i][0]*results[i][0]/((results[i][1]==0)?1:results[i][1]);
             }
+            double matches = Math.pow(playerspermatch, (breadth-1))* (breadth-1) * rematches;
+
             int maxIndex = 0;
             for(int i = 1; i < individuals.size(); i++) {
                 if (k2d[i] > k2d[maxIndex]) {
@@ -89,7 +92,7 @@ public class GenerationManager {
                 }
             }
             //max Index now holds most successfull individual
-            System.out.println("Generation "+generation+": "+maxIndex+": "+k2d[maxIndex]);
+            System.out.println("Generation "+generation+": "+maxIndex+": "+(k2d[maxIndex]/matches));
             seed = individuals.get(maxIndex);
         }
     }

@@ -46,6 +46,7 @@ public class CommandTemplate {
         templates.add(new CommandTemplate("strl"));
         templates.add(new CommandTemplate("strr"));
         templates.add(new CommandTemplate("rand r"));
+        templates.add(new CommandTemplate("absl r"));
 
         actionTemplates.add(new CommandTemplate("fire"));
         actionTemplates.add(new CommandTemplate("movb"));
