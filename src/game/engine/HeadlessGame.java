@@ -12,7 +12,7 @@ public class HeadlessGame {
 
     ArrayList<Player> combatants;
     ArrayList<File> contestants;
-    private long previousTime;
+    private long startTime;
 
     public HeadlessGame(ArrayList<File> contestants) {
         this.contestants = contestants;
@@ -23,11 +23,9 @@ public class HeadlessGame {
         combatants = new ArrayList<Player>();
         ScriptLearnerShooterMatchInstance instance = new ScriptLearnerShooterMatchInstance();
         instance.loadHeadlessContent(contestants, combatants);
-        previousTime = System.nanoTime();
+        startTime = System.nanoTime();
         for (int c = 0; c < cycles; c++) {
-            long temp;
-            instance.update((long)Math.round(((temp = System.nanoTime()) - previousTime)/1e6));
-            previousTime = temp;
+            instance.update(System.nanoTime()-startTime);
         }
         for(int i = 0; i < combatants.size(); i++) {
             results[i] = combatants.get(i).getStats();

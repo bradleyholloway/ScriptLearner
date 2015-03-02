@@ -16,6 +16,7 @@ public class GameWindow {
         int width = game.getWidth();
         int height = game.getHeight();
         final boolean[] keystatus = new boolean[257];
+        final double[] lastMouseLocation = new double[2];
 
 
         JFrame frame = new JFrame();
@@ -40,17 +41,22 @@ public class GameWindow {
         frame.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                lastMouseLocation[0] = e.getX();
+                lastMouseLocation[1] = e.getY();
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 keystatus[256] = true;
+                lastMouseLocation[0] = e.getX();
+                lastMouseLocation[1] = e.getY();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 keystatus[256] = false;
+                lastMouseLocation[0] = e.getX();
+                lastMouseLocation[1] = e.getY();
             }
 
             @Override
@@ -65,6 +71,7 @@ public class GameWindow {
         });
         Graphics frameGraphics = frame.getGraphics();
         game.giveKeys(keystatus);
+        game.giveMouse(lastMouseLocation);
 
         int millis = 1000 / desiredFramePerSecondRate;
         game.loadContent();

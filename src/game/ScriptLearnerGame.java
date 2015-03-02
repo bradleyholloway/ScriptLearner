@@ -37,11 +37,7 @@ public class ScriptLearnerGame extends Game {
         }
         if (keys[256]) {
             instance.giveKeys(keys);
-            double mousex = MouseInfo.getPointerInfo().getLocation().getX();
-            double mousey = MouseInfo.getPointerInfo().getLocation().getY();
-            mousex /= width;
-            mousey /= height;
-            instance.requestControl(mousex,mousey);
+            instance.requestControl(mouseInfo[0]/getWidth(),mouseInfo[1]/getHeight());
         }//mouse event
 
     }

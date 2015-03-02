@@ -66,6 +66,8 @@ public class ScriptLearnerShooterMatchInstance {
         for(Player p : players) {
             if (p.contains(x,y)) {
                 p.takeControl(keys);
+            } else {
+                p.releaseControl();
             }
         }
     }
