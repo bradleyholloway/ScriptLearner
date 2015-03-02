@@ -16,7 +16,7 @@ import static utils.GraphicsRelativeUtil.y;
  * 2/28/2015
  */
 public class ScriptLearnerShooterMatchInstance {
-    public static final boolean LOG = false;
+    public static final boolean LOG = true;
 
     public static ArrayList<Player> players;
     public static ArrayList<Bullet> bullets;
@@ -73,7 +73,7 @@ public class ScriptLearnerShooterMatchInstance {
                 } catch (Exception e) {
 
                 }
-                if (keys[0x47]) {
+                if (keys != null && keys[0x47]) {
                     try {
                         log.close();
                     } catch (Exception e) {
