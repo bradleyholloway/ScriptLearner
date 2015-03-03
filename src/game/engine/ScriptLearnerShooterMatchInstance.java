@@ -45,15 +45,16 @@ public class ScriptLearnerShooterMatchInstance {
        // players.add(new Player(new File("ais/dodgey.ai")));
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             //players.add(new Player(new File("ais/test.ai")));
-            players.add(new Player(new File("ais/robertoGenetics/competitor" + i+".ai")));
+            players.add(new Player(new File("ais/robertoGenetics4/competitor" + i+".ai")));
             //players.add(new Player(new File("ais/dodgey.ai")));
 
             //players.add(new Player(new File("ais/bradleygenetics/generation2/0.ai")));
         }
 
         Player.setPlayerCount(players.size());
+
     }
 
     public void loadHeadlessContent(ArrayList<File> files, ArrayList<Player> combattants) {
@@ -115,6 +116,10 @@ public class ScriptLearnerShooterMatchInstance {
 
         for (Player player : players) {
             player.draw(g);
+            if (player.getStats()[5]!=0) {
+                g.setColor(Color.red);
+                g.fillOval(x(.25),y(.25),x(.5),y(.5));
+            }
         }
         for (Bullet bullet : bullets) {
             bullet.draw(g);

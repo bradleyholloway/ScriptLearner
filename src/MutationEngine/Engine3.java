@@ -16,8 +16,8 @@ public class Engine3 {
 
     public Engine3()
     {
-        for(int  i = 0; i<numPlayers; i++)
-            mutefile.writeToFile(new File("ais/robertoGenetics/competitor" + i+".ai"));
+        //for(int  i = 0; i<numPlayers; i++)
+          //  mutefile.writeToFile(new File("ais/robertoGenetics/competitor" + i+".ai"));
 
     }
 

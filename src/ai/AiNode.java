@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * 2/28/2015
  */
 public class AiNode {
-    public static final int timeout = 1;
+    public static final int timeout = 100000;
 
     public static final int halt = 0;
     public static final int zero = 1;

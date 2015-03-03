@@ -18,14 +18,15 @@ public class Engine4 {
     {
         numPlayers = 10;
         for(int  i = 0; i<numPlayers; i++)
-            mutefile.writeToFile(new File("ais/robertoGenetics/competitor" + i+".ai"));
+            mutefile.writeToFile(new File("ais/robertoGenetics4/competitor" + i+".ai"));
 
     }
 
     public Engine4(int numPlayers)
     {
+        this.numPlayers = numPlayers;
         for(int  i = 0; i<numPlayers; i++)
-            mutefile.writeToFile(new File("ais/robertoGenetics/competitor" + i+".ai"));
+            mutefile.writeToFile(new File("ais/robertoGenetics4/competitor" + i+".ai"));
 
     }
 
@@ -45,27 +46,99 @@ public class Engine4 {
         mutefile.deleteLine((int) Math.random() * (mutefile.currentLength() - 1));
     }
 
-    public void runMatchedGeneration(int playerMatchesPerGeneration, int numPerMatch)
+    public void runMatchedGeneration(int playerMatchesPerGeneration, int minMatchSize, int maxMatchSize)
     {
+        int bestCompetitor = 0;
         double [] scores = new double [numPlayers];
-        ArrayList<int []> matches = MatchGenerator(playerMatchesPerGeneration,numPerMatch);
+        ArrayList<ArrayList<Integer>> matchLists = MatchGenerator(playerMatchesPerGeneration,minMatchSize,maxMatchSize);
 
+        for(ArrayList<Integer> match:matchLists)
+        {
+            ArrayList<File> contestants = new ArrayList<File>();
+            for(int competitor:match)
+            {
+                contestants.add(new File("ais/robertoGenetics4/competitor" + competitor +".ai"));
+            }
+            HeadlessGame game = new HeadlessGame(contestants);
+            int[][] results = game.runNGames(1,1000);
+            int bestIndex = 0;
+            for(int i = 0; i <match.size(); i++)
+            {
+                if(results[i][2]>results[bestIndex][2])
+                {
+                    bestIndex = i;
+                }
+                else
+                {
+                    if(results[i][0]>results[bestIndex][0])
+                    {
+                        bestIndex = i;
+                    }
+                }
+            }
+            scores[match.get(bestIndex)]++;
+        }
+
+        for(int i = 0; i< scores.length; i++)
+        {
+            if(scores[i]>scores[bestCompetitor])
+            {
+                bestCompetitor = i;
+            }
+        }
+        System.out.print(bestCompetitor);
+        setNewGeneration(bestCompetitor);
     }
 
-    public ArrayList<int []> MatchGenerator(int playerMatchesPerGeneration, int numPerMatch)
+    public void runMatchedGeneration(int playerMatchesPerGeneration, int matchSize)
     {
+        runMatchedGeneration(playerMatchesPerGeneration,matchSize,matchSize);
+    }
+
+
+    public ArrayList<ArrayList<Integer>> MatchGenerator(int playerMatchesPerGeneration, int minMatchSize, int maxMatchSize)
+    {
+        ArrayList<Integer> playersSelectable =  new ArrayList<Integer>();
+        ArrayList<ArrayList<Integer>> matchLists =  new ArrayList<ArrayList<Integer>>();
+        int mostMatchesLeft = playerMatchesPerGeneration;
         int [] playerMatchesLeft = new int[numPlayers];
-        for(int current: playerMatchesLeft)
-            playerMatchesLeft[current] = playerMatchesPerGeneration;
 
+        for(int i = 0; i < playerMatchesLeft.length; i++){
+            playerMatchesLeft[i] = playerMatchesPerGeneration;
+        }
 
+        while(mostMatchesLeft > 0)
+        {
+            ArrayList<Integer> match = new ArrayList<Integer>();
+            int numPerMatch = (int) Math.round(Math.random() * (maxMatchSize - minMatchSize) + minMatchSize);
+            while(mostMatchesLeft!=0&&match.size()<numPerMatch)
+            {
+                //creates a list of selectable players based on who has the most matches left
+                for(int i = 0;i<numPlayers;i++)
+                {
+                    //adds player to selectable list if they have the most matches left
+                    if(playerMatchesLeft[i]==mostMatchesLeft&&mostMatchesLeft!=0){
+                        playersSelectable.add(i);
+                    }
+                }
+                //if no one has the most matches, reduces the most matches
+                if(playersSelectable.size()==0&&mostMatchesLeft!=0){
+                    mostMatchesLeft--;
+                }
 
-        return null;
-    }
+                if(playersSelectable.size()>0)
+                {
+                    int playerToAdd = playersSelectable.get((int)Math.round(Math.random()*(playersSelectable.size()-1)));
+                    playersSelectable.clear();
+                    playerMatchesLeft[playerToAdd]--;
+                    match.add(playerToAdd);
+                }
+            }
+            if(mostMatchesLeft>0)
+                matchLists.add(match);
 
-    public ArrayList<int []> MatchGenerator(int playerMatchesPerGeneration)
-    {
-        return null;
+        }
+        return matchLists;
     }
 
     public void runBasicGeneration ()
@@ -76,7 +149,7 @@ public class Engine4 {
 
         for(int i = 0; i <numPlayers; i++)
         {
-            contestants.add(new File("ais/robertoGenetics/competitor" + i+".ai"));
+            contestants.add(new File("ais/robertoGenetics4/competitor" + i+".ai"));
         }
         HeadlessGame game = new HeadlessGame(contestants);
         int[][] results = game.runNGames(1,1000);
@@ -102,8 +175,8 @@ public class Engine4 {
 
     public void setNewGeneration(int bestIndex)
     {
-        mutefile = new Mutator(new File("ais/robertoGenetics/competitor" + bestIndex+".ai"));
-        mutefile.overwriteFile(new File("ais/robertoGenetics/competitor" + 0 + ".ai"));
+        mutefile = new Mutator(new File("ais/robertoGenetics4/competitor" + bestIndex+".ai"));
+        mutefile.overwriteFile(new File("ais/robertoGenetics4/competitor" + 0 + ".ai"));
 
         for(int i = 1; i <numPlayers; i++)
         {
@@ -114,7 +187,7 @@ public class Engine4 {
             else
                 for(int x = 0; x < numVariations; x++)
                     deleteRandomAction();
-            mutefile.overwriteFile(new File("ais/robertoGenetics/competitor" + i + ".ai"));
+            mutefile.overwriteFile(new File("ais/robertoGenetics4/competitor" + i + ".ai"));
         }
     }
 }
