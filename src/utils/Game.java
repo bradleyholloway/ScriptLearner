@@ -18,6 +18,7 @@ public abstract class Game {
     protected int height;
     protected int frameRate;
     protected boolean[] keys;
+    protected double[] mouseInfo;
     protected HashMap<String, BufferedImage> images;
     protected HashMap<String, Clip> sounds;
     protected String contentDirectory;
@@ -35,6 +36,10 @@ public abstract class Game {
     }
     public void giveKeys(boolean[] keys) {
         this.keys = keys;
+    }
+
+    public void giveMouse(double[] mouseInfo) {
+        this.mouseInfo = mouseInfo;
     }
 
     public int getWidth() {
