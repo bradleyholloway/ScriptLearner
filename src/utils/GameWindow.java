@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class GameWindow {
 
-    public GameWindow(Game game, int targetFrameRate) {
+    public GameWindow(final Game game, int targetFrameRate) {
 
         int desiredFramePerSecondRate = targetFrameRate;
         int width = game.getWidth();
@@ -21,7 +21,16 @@ public class GameWindow {
         JFrame frame = new JFrame();
         frame.setVisible(true);
         frame.setSize(width, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new JComponent() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.clearRect(0,0,getWidth(),getHeight());
+                game.draw(g);
+
+            }
+        });
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -72,8 +81,6 @@ public class GameWindow {
 
         while (true) {
             long beginTime = System.nanoTime();
-            BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            Graphics bufferGraphics = buffer.getGraphics();
 
             if (frame.getWidth() != width || frame.getHeight() != height) {
                 width = frame.getWidth();
@@ -86,10 +93,8 @@ public class GameWindow {
             }
 
             game.update(System.nanoTime() - startTime);
-            game.draw(bufferGraphics);
+            frame.repaint();
 
-            frameGraphics.clearRect(0, 0, width, height);
-            frameGraphics.drawImage(buffer, 0, 0, null);
             long endTime = System.nanoTime();
             long elapsedTime = Math.round((endTime - beginTime) / 1e6);
 
