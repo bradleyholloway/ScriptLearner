@@ -25,9 +25,11 @@ public class GameWindow {
         frame.add(new JComponent() {
             @Override
             protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.clearRect(0,0,getWidth(),getHeight());
-                game.draw(g);
+                if (g != null) {
+                    super.paintComponent(g);
+                    g.clearRect(0, 0, getWidth(), getHeight());
+                    game.draw(g);
+                }
 
             }
         });
