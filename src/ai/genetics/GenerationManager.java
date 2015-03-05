@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class GenerationManager {
 
-    private static final int breadth = 8;
-    private static final int playerspermatch = 5;
+    private static final int breadth = 4;
+    private static final int playerspermatch = 3;
     private static final int rematches = 1;
     private static final int generations = 100;
     private static final int registersUsed = 8;
@@ -23,6 +23,9 @@ public class GenerationManager {
     private static final int actionCommandsPossible = WriteUtil.getActionTemplates().size();
 
     public static void generateWithSeed(File seed) {
+        System.out.println("Beginning Generations with "+seed);
+        double matches = Math.pow(playerspermatch, (breadth-1))* (breadth-1) * rematches;
+
         ArrayList<File> individuals;
         for (int generation = 0; generation < generations; generation++) {
             Mutator mutator = new Mutator(seed);
@@ -76,14 +79,13 @@ public class GenerationManager {
 
             ArrayList<Integer> indicies = new ArrayList<Integer>();
             int[][] results = new int[individuals.size()][Player.trackedStats];
-
-            r_matchmaking(indicies, results, individuals);
+            currentMatch = 1;
+            r_matchmaking(indicies, results, individuals,(int)matches);
 
             double[] k2d = new double[individuals.size()];
             for (int i = 0; i < individuals.size(); i++) {
                 k2d[i] = (double)results[i][0]*results[i][0]/((results[i][1]==0)?1:results[i][1]);
             }
-            double matches = Math.pow(playerspermatch, (breadth-1))* (breadth-1) * rematches;
 
             int maxIndex = 0;
             for(int i = 1; i < individuals.size(); i++) {
@@ -96,7 +98,9 @@ public class GenerationManager {
             seed = individuals.get(maxIndex);
         }
     }
-    private static void r_matchmaking(ArrayList<Integer> indicies, int[][] results, ArrayList<File> individuals) {
+
+    private static int currentMatch;
+    private static void r_matchmaking(ArrayList<Integer> indicies, int[][] results, ArrayList<File> individuals, int totalMatches) {
         int n_remaining = playerspermatch - indicies.size();
 
         if (n_remaining == 0) {
@@ -107,10 +111,17 @@ public class GenerationManager {
             HeadlessGame game = new HeadlessGame(sublistBattle);
             int[][] tempResult = game.runNGames(rematches, 1000);
             addAll(results, tempResult, indicies);
+            if (currentMatch*20/totalMatches%totalMatches<20)
+            {
+                System.out.print(".");
+            }
+
+            currentMatch++;
+
         } else {
             for(int i = 0; i < breadth; i++) {
                 indicies.add(new Integer(i));
-                r_matchmaking(indicies, results, individuals);
+                r_matchmaking(indicies, results, individuals,totalMatches);
                 indicies.remove(indicies.size()-1);
             }
         }

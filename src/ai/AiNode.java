@@ -9,6 +9,9 @@ import java.util.ArrayList;
  * 2/28/2015
  */
 public class AiNode {
+    public static final int usableRegisters = 10;
+    public static final int reservedRegisters = 10;
+
     public static final int timeout = 4;
 
     public static final int halt = 0;
@@ -26,7 +29,7 @@ public class AiNode {
     public AiNode() {
         commands = new ArrayList<AiCommand>();
         linum = 0;
-        localData = new int[20];
+        localData = new int[usableRegisters+reservedRegisters];
         flags = new boolean[5];
     }
     public void linkPlayer(Player player) {
